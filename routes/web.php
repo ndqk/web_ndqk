@@ -21,6 +21,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['check.login.admin']], function () {
     Route::get('/', 'AdminController@home')->name('admin.home');
     Route::resource('role', 'RoleController');
+    Route::get('role-show', 'RoleControlelr@showRole')->name('show.role');
 
     Route::group(['prefix' => 'user'], function () {
         Route::get('/list', 'UserController@showList')->name('user.list');

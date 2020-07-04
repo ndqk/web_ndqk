@@ -27,7 +27,6 @@
   <div class="card">
     <div class="card-body login-card-body">
       @include('partials.alert')
-
       <form action="{{route('admin.login')}}" method="post">
         @csrf
         <div class="input-group mb-3">

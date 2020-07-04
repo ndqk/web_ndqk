@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreRoleRequest;
+
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -14,7 +18,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('admin.role.list');
+        $roles = Role::orderBy('id', 'DESC')->get();
+        return view('admin.role.list', compact('roles'));
     }
 
     /**
@@ -24,7 +29,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('admin.role.create');
+        $permissions = Permission::select('id', 'name')->get();
+        return view('admin.role.create', compact('permissions'));
     }
 
     /**
@@ -33,9 +39,11 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRoleRequest $request)
     {
-        //
+        $role = Role::create(['name' => $request->input('name')]);
+        $role->syncPermissions($request->input('permission'));
+        return redirect()->back();
     }
 
     /**
@@ -47,6 +55,10 @@ class RoleController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function showRole(Request $request){
+        return $request->input('role_id');
     }
 
     /**

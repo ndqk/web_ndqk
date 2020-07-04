@@ -116,9 +116,10 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dist/js/demo.js')}}"></script>
 
+@stack('script')
 @yield('js')
 
-@stack('script')
+
 
 </body>
 </html>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\{LoginRequest};
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 use Session;
 use App\Entity\User;
@@ -13,7 +14,9 @@ use App\Entity\User;
 class LoginController extends Controller
 {
     public function showLoginForm(){
-        if(Auth::check() && Auth::user()->hasRole('Admin')){
+        $roles = Role::where('name','<>', 'Customer')->pluck('name');
+        $checkRoles = (array)$roles;
+        if(Auth::check() && Auth::user()->hasRole($checkRoles)){
             return redirect()->route('admin.home');
         }
         return view('admin.login.login');
