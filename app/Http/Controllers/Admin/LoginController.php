@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Entity\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
+use Illuminate\Http\Request;
+use App\Http\Requests\{LoginRequest};
 use Illuminate\Support\Facades\Auth;
+
+use Session;
+use App\Entity\User;
 
 class LoginController extends Controller
 {
     public function showLoginForm(){
-        if(Auth::check()){
+        if(Auth::check() && Auth::user()->hasRole('Admin')){
             return redirect()->route('admin.home');
         }
         return view('admin.login.login');
@@ -26,7 +28,7 @@ class LoginController extends Controller
             return redirect()->route('admin.home');
         }
         else{
-            return redirect()->back()->with('status', 'Email hoặc mật khẩu không chính xác.');
+            return redirect()->back()->withErrors(['Email hoặc mật khẩu không chính xác']);
         }
         
     }

@@ -17,10 +17,16 @@ class CheckLoginAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check()){
-            return redirect()->route('admin.home');
+        if(!Auth::check()){
+            return redirect()->route('admin.login');
+                
         }
         else
-            return redirect()->route('admin.login');
+            if(Auth::check() && Auth::user()->hasRole('Customer')){
+                return redirect()->route('admin.login');
+            }
+            else{
+                return $next($request);
+            }
     }
 }

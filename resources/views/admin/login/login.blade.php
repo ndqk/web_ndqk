@@ -26,11 +26,7 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-        @if (session('status'))
-            <p class="login-box-msg">{{session('status')}}</p>
-        @else
-            <p class="login-box-msg">Sign in to start your session</p>
-        @endif
+      @include('partials.alert')
 
       <form action="{{route('admin.login')}}" method="post">
         @csrf

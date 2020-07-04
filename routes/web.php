@@ -20,6 +20,33 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['check.login.admin']], function () {
     Route::get('/', 'AdminController@home')->name('admin.home');
+    Route::resource('role', 'RoleController');
+
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/list', 'UserController@showList')->name('user.list');
+        Route::get('/get-list', 'UserController@getList')->name('user.get.list');
+
+        Route::get('/create', 'UserController@create')->name('user.create');
+        Route::post('/store', 'UserController@store')->name('user.store');
+
+        Route::get('/edit/{id}', 'UserController@showEditForm')->name('user.edit');
+        Route::post('/edit/{id}', 'UserController@edit')->name('user.edit');
+
+        Route::get('/delete/{id}', 'UserController@delete')->name('user.delete');
+    });
+
+    Route::group(['prefix' => 'customer'], function () {
+        Route::get('/list', 'CustomerController@showList')->name('customer.list');
+        Route::get('/get-list', 'CustomerController@getList')->name('customer.get.list');
+
+        Route::get('/create', 'CustomerController@create')->name('customer.create');
+        Route::post('/store', 'CustomerController@store')->name('customer.store');
+
+        Route::get('/edit/{id}', 'CustomerController@showEditForm')->name('customer.edit');
+        Route::post('/edit/{id}', 'CustomerController@edit')->name('customer.edit');
+
+        Route::get('/delete/{id}', 'CustomerController@delete')->name('customer.delete');
+    });
 });
 
 Route::get('/', function () {
