@@ -11,7 +11,7 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title">Danh sách tài khoản quản trị</h3>
             </div>
@@ -23,6 +23,8 @@
                             <th>ID</th>
                             <th>Tên</th>
                             <th>Email</th>
+                            <th>Address</th>
+                            <th>Phone</th>
                             <th>Role</th>
                             <th>Action</th>
                         </tr>
@@ -43,7 +45,6 @@
     <script type="text/javascript">
         $(function(){
             $('#user').DataTable({
-                processing: true,
                 serverSide: true,
                 pageLength: 6,
                 ajax : {
@@ -54,6 +55,8 @@
                     {data : 'id', name : 'id'},
                     {data : 'name', name : 'name'},
                     {data : 'email', name : 'email'},
+                    {data : 'address', name : 'address'},
+                    {data : 'phone', name : 'phone'},
                     {data : 'role', name : 'role'},
                     {data : 'action', name : 'action', orderable : false, searchable:true},
                 ],

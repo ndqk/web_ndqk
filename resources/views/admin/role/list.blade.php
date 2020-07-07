@@ -4,9 +4,9 @@
 @section('nameRoute', 'List Role')
 
 @section('content')
-<div class="card">
+<div class="card card-primary">
     <div class="card-header">
-      <h3 class="card-title">Bordered Table</h3>
+      <h3 class="card-title">List role</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -27,8 +27,8 @@
                         <td>{{$role->name}}</td>
                         <td>{{$role->id}}</td>
                         <td>
-                            <button type="button" class="btn btn-default" data-id={{$role->id}} data-toggle="modal" data-target="#modal-lg" onclick="showRole(this)">
-                                Edit
+                            <button type="button"  class="btn btn-primary edit-role-btn" data-link="{{route('role.show', $role->id)}}" data-toggle="modal" data-target="#modal-lg">
+                                Detail
                             </button>
                         </td>
                     </tr>
@@ -51,21 +51,25 @@
   <!-- /.card -->
   <div class="modal fade" id="modal-lg">
     <div class="modal-dialog modal-lg">
-        <form class="modal-content">
+        <form class="modal-content" method="post" action="" id="form-edit">
+            @method('PUT')
             @csrf
+            
             <div class="modal-header">
-                <h4 class="modal-title">Edit</h4>
+                <h4 class="modal-title">DETAIL</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="model-content-body">
+            <div id="alert-edit-role">
+
+            </div>
+            <div class="modal-body" id="modal-content-body">
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary" id="save-change">Save changes</button>
             </div>
-        </div>
         <!-- /.modal-content -->
         </form>
     <!-- /.modal-dialog -->
@@ -75,22 +79,41 @@
 
 @push('script')
 <script type="text/javascript">
-    function showRole(e){
-        var role_id = $(e).data('id');
-        $.ajax({
-            url : '{{route('show.role')}}',
-            method : 'GET',
-            data : {
-                role_id : role_id
-            },
-            success: function (data){
-                alert(data);
-                $('#model-content-body').html(data);
-            },
-            error:function(error){
+  $(function(){
+    $('.edit-role-btn').click(function(){
+      let url = $(this).data('link');
+      $.ajax({
+        type : 'GET',
+        url : url,
+        success : function(respone){
+          $('#modal-content-body').html(respone);
+          $('#form-edit').attr('action', url);
 
-            }
-        });
-    } 
+        },
+        error : function(error){
+
+        }
+      });
+    });
+
+    $('#save-change').click(function(){
+      let url = $('#form-edit').attr('action');
+      let data = $('#form-edit').serialize()
+      
+      $.ajax({
+        type : 'PUT',
+        url : url,
+        data : data,
+        success : function (respone){
+          $('#alert-edit-role').html(respone);
+        },
+        error : function(error){
+
+        }
+      })
+      return false;
+
+    });
+  });
 </script>   
 @endpush

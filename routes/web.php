@@ -20,9 +20,23 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['check.login.admin']], function () {
     Route::get('/', 'AdminController@home')->name('admin.home');
+    //role
     Route::resource('role', 'RoleController');
-    Route::get('role-show', 'RoleControlelr@showRole')->name('show.role');
 
+    //category
+    Route::resource('category', 'CategoryController');
+    Route::get('/category/delete/{id}', ['as' => 'category.delete', 'uses' => 'CategoryController@destroy']);
+
+    //post
+    Route::resource('post', 'PostController');
+    Route::post('post-preview', 'PostController@preview')->name('post.preview');
+
+    //profile
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('/', 'ProfileController@index')->name('profile.index');
+        Route::post('/', 'ProfileController@update')->name('profile.update');
+    });
+    //user
     Route::group(['prefix' => 'user'], function () {
         Route::get('/list', 'UserController@showList')->name('user.list');
         Route::get('/get-list', 'UserController@getList')->name('user.get.list');
@@ -35,7 +49,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['che
 
         Route::get('/delete/{id}', 'UserController@delete')->name('user.delete');
     });
-
+    //customer
     Route::group(['prefix' => 'customer'], function () {
         Route::get('/list', 'CustomerController@showList')->name('customer.list');
         Route::get('/get-list', 'CustomerController@getList')->name('customer.get.list');
@@ -48,6 +62,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['che
 
         Route::get('/delete/{id}', 'CustomerController@delete')->name('customer.delete');
     });
+
 });
 
 Route::get('/', function () {

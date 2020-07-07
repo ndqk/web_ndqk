@@ -19,9 +19,9 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     function __construct(){
-        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => 'showList']);
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['showList', 'getList']]);
         $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:user-edit',['showEditForm', 'edit']);
+        $this->middleware('permission:user-edit',['only' => ['showEditForm', 'edit']]);
         $this->middleware('permission:user-delete', ['only' => 'delete']);
     }
 
@@ -33,7 +33,7 @@ class UserController extends Controller
         $user = User::join('model_has_roles', 'users.id', 'model_has_roles.model_id')
                     ->join('roles', 'roles.id', 'model_has_roles.role_id')
                     ->whereNotIn('roles.name', ['Customer'])
-                    ->select('users.id', 'users.name' ,'users.email', 'roles.name as role');
+                    ->select('users.id', 'users.name' ,'users.email', 'users.address', 'users.phone', 'roles.name as role');
         
             return Datatables::of($user)->addColumn('action', function($user){
                 $string =   '<a href="'.route('user.edit', $user->id).'">Edit </a>';
