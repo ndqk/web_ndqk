@@ -9,6 +9,7 @@
 @section('nameRoute', 'Product  / List')
 
 @section('content')
+@include('partials.alert')
 <div class="row">
     <div class="col-12">
         <div class="card card-primary">
@@ -22,7 +23,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Title</th>
-                            <th>Content</th>
+                            <th>Category</th>
+                            <th>Image</th>
                             <th>Author</th>
                             <th>View</th>
                             <th>Status</th>
@@ -46,18 +48,21 @@
         $(function(){
             $('#user').DataTable({
                 serverSide: true,
-                pageLength: 6,
+                pageLength: 10,
                 ajax : {
-                    url : '{{ route('user.get.list') }}',
+                    url : '{{ route('post.list') }}',
                     type : 'GET',
                 },
                 columns : [
                     {data : 'id', name : 'id'},
-                    {data : 'name', name : 'name'},
-                    {data : 'email', name : 'email'},
-                    {data : 'address', name : 'address'},
-                    {data : 'phone', name : 'phone'},
-                    {data : 'role', name : 'role'},
+                    {data : 'title', name : 'title'},
+                    {data : 'title', name : 'categories.title'},
+                    {data : 'image', render : function(data){
+                        return '<img src="/upload/image/post/'+data+'" width="100" />';
+                    },  name : 'images.image'},
+                    {data : 'name', name : 'users.name'},
+                    {data : 'view', name : 'view'},
+                    {data : 'status', name : 'status'},
                     {data : 'action', name : 'action', orderable : false, searchable:true},
                 ],
             });

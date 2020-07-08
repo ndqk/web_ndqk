@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin;
+namespace App\Entity;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -10,7 +10,7 @@ class Post extends Model
     use Sluggable;
     protected $table="posts";
 
-    protected $fillable=['title', 'slug', 'category_id', 'content', 'user_id', 'view', 'status'];
+    protected $fillable=['title', 'slug', 'category_id', 'content', 'user_id','view', 'status'];
 
     public function sluggable(){
         return [
@@ -18,5 +18,9 @@ class Post extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    public function images(){
+        return $this->hasMany('App\Entity\Image', 'post_id', 'id');
     }
 }

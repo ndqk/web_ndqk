@@ -3,12 +3,15 @@
 @section('titleHeader', 'Create product')
 @section('nameRoute', 'Product / Create')
 
+@section('css')
+    <link rel="stylesheet" href="{{asset('site/css/preview.css')}}">
+@endsection
 
 @section('content')
 @include('partials.alert')
 <div class="card card-primary">
     <div class="card-header">
-      <h3 class="card-title">Thêm mới tài khoản quản trị</h3>
+      <h3 class="card-title">Thêm mới bài viết</h3>
     </div>
     <!-- /.card-header -->
     <!-- form start -->
@@ -17,21 +20,21 @@
       <div class="card-body">
         <div class="form-group">
             <label for="InputName">Title *</label>
-            <input type="text" name="title" id="InputName" class="form-control" placeholder="Title" required>
+            <input type="text" name="title" id="InputName" class="form-control" placeholder="Title" >
         </div>
         <div class="form-group">
             <label for="InputCategory">Category</label>
             <select name="category" id="InputCategory" class="custom-select">
                 @foreach ($categories as $category)
-                  <option value="{{$category->id}}">{{$category->title}}</option>
+                  <option value="{{$category->id}}" data-name="{{$category->title}}">{{$category->title}}</option>
                 @endforeach
             </select>
         </div>
         <div class="form-group">
-            <label for="inputPreImage">File input</label>
+            <label for="inputPreImage">Preview Image*</label>
             <div class="input-group">
               <div class="custom-file">
-                <input name="previewImage" type="file" class="custom-file-input" id="inputPreImage">
+                <input name="previewImage" type="file" class="custom-file-input" id="inputPreImage" >
                 <label class="custom-file-label" for="inputPreImage">Choose file</label>
               </div>
               <div class="input-group-append">
@@ -40,10 +43,11 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputBackgroundImage">File input</label>
+            <label for="inputBackgroundImage">Background Image</label>
             <div class="input-group">
               <div class="custom-file">
-                <input name="backgroundImage" type="file" class="custom-file-input" id="inputBackgroundImage">
+                <input name="backgroundImage" type="file" class="custom-file-input" id="inputBackgroundImage"
+                onchange="document.getElementById('backgroundImage').src = window.URL.createObjectURL(this.files[0])">
                 <label class="custom-file-label" for="inputBackgroundImage">Choose file</label>
               </div>
               <div class="input-group-append">
@@ -92,15 +96,16 @@
       <!-- /.card-body -->
 
       <div class="card-footer">
-        <button type="submit" class="btn btn-primary">Submit</button>
         <a class="btn btn-primary preview-post" data-toggle="modal" data-target="#modal-xl">
             Perview
         </a>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </form>
     
   </div>
 
+  {{-- MODEL FREVIEW --}}
   <div class="modal fade" id="modal-xl">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -116,6 +121,42 @@
             <div class="modal-body" id="modal-content-body">
                 {{-- <iframe src="{{route('post.preview')}}" frameborder="0" width="100%" height="500px"></iframe> --}}
                 {{-- @include('admin.post.preview') --}}
+                
+                        <section class="s-content s-content--top-padding s-content--narrow">
+
+                            <article class="row entry format-standard">
+                    
+                                <div class="entry__media col-full">
+                                    <div class="entry__post-thumb">
+                                        <img id="backgroundImage" src="" 
+                                            width="100%" sizes="(max-width: 2000px) 100vw, 2000px" alt="">
+                                    </div>
+                                </div>
+                    
+                                <div class="entry__header col-full">
+                                    <h1 class="entry__header-title display-1">
+                                        
+                                    </h1>
+                                    <ul class="entry__header-meta">
+                                        <li class="date">June 15, 2018</li>
+                                        <li class="byline">
+                                            By
+                                            <a href="{{asset('site/#0')}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                    
+                                <div class="col-full entry__main">
+                                    <div class="entry_content" style="width: 100%">
+                                        
+                                    </div>
+                    
+                                </div> <!-- s-entry__main -->
+                    
+                            </article> <!-- end entry/article -->
+                    
+                    
+                        </section>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -133,16 +174,12 @@
     <script type="text/javascript">
         $(function(){
             $('.preview-post').click(function(){
-                let data = $('#create-post-form').serialize()
-                $.ajax({
-                    type: 'POST',
-                    url : '{{route('post.preview')}}',
-                    data : data,
-                    success : function(respone){
-                        $('#modal-content-body').html(respone);
-                        //alert(respone);
-                    }
-                });
+                let title = $("input[name='title']").val();
+                let content = $("textarea[name='content']").val();
+                let utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+                $('.entry__header-title').html(title);
+                $('.date').html(utc);
+                $('.entry_content').html(content);
             });
         });
     </script>

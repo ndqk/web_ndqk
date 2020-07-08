@@ -29,7 +29,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['che
 
     //post
     Route::resource('post', 'PostController');
-    Route::post('post-preview', 'PostController@preview')->name('post.preview');
+    Route::get('/post-list', 'PostController@getList')->name('post.list');
+    Route::get('/post/delete/{id}', ['as' => 'post.delete', 'uses' => 'PostController@destroy']);
 
     //profile
     Route::group(['prefix' => 'profile'], function () {

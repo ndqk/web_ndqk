@@ -4,9 +4,9 @@
     padding-bottom: 7.2rem;
   }
 
-  .s-content--top-padding {
+  /* .s-content--top-padding {
     padding-top: 16.2rem;
-  }
+  } */
 
   .s-content--narrow .row {
     max-width: 1000px;
@@ -59,6 +59,10 @@
   
   .entry__main {
     margin-top: 6rem;
+  }
+  .entry__main {
+    padding-left: 7rem;
+    padding-right: 7rem;
   }
   
   .entry__taxonomies {
@@ -209,7 +213,7 @@
   }
 
   .row {
-    width: 89%;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -220,12 +224,12 @@
     clear: both;
   }
   
-  .row .row {
+  /* .row .row {
     width: auto;
     max-width: none;
     margin-left: -20px;
     margin-right: -20px;
-  }
+  } */
 
   .entry__main img {
     max-width: 1000px;
@@ -260,3 +264,7 @@
     background: transparent;
     color: #000000;
   }  
+
+  img {
+    margin: 0;
+  }
