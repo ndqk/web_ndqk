@@ -162,6 +162,30 @@
 
           <li class="nav-header">QUẢN LÝ GIAO DIỆN</li>
 
+          <li class="nav-item has-treeview {{request()->routeIs('banner*') ? 'menu-open' : ''}}">
+            <a href="{{asset('#')}}" class="nav-link {{request()->routeIs('banner*') ? 'active' : ''}}">
+              <i class="nav-icon fas fa-images"></i>
+              <p>
+                Quản lý Banner
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('banner.index')}}" class="nav-link {{request()->routeIs('banner.index') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Danh sách banner</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('banner.create')}}" class="nav-link {{request()->routeIs('banner.create') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Thêm mới banner</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <li class="nav-header">QUẢN LÝ QUẢNG CÁO</li>
         </ul>
       </nav>

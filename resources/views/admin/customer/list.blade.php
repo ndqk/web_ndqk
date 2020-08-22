@@ -9,6 +9,7 @@
 @section('nameRoute', 'List Customer')
 
 @section('content')
+@include('partials.alert')
 <div class="row">
     <div class="col-12">
         <div class="card card-primary">

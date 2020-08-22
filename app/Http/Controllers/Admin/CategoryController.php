@@ -23,7 +23,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::get();
+        $categories = Category::all();
         return view('admin.category.list', compact('categories'));
     }
 
@@ -62,7 +62,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::where('id', $id)->first();
+        $category = Category::findOrFail($id);
         $on = ($category->status == 1) ? 'selected' : '';
         $off = ($category->status == 0) ? 'selected' : '';
 
@@ -123,8 +123,12 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $deleteCategory = Category::where('id', $id);
-        $deleteCategory->delete();
+        $deleteCategory = Category::findOrFail($id);
+        try{
+            $deleteCategory->delete();
+        } catch(\Exception $e){
+            return redirect()->back()->withErrors(['Không thể xóa mục này']);;
+        }
         return redirect()->back()->with('status', 'Xóa thành công');
     }
 }

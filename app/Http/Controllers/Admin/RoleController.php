@@ -24,7 +24,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::orderBy('id', 'DESC')->get();
+        $roles = Role::orderBy('id', 'ASC')->get();
         return view('admin.role.list', compact('roles'));
     }
 
@@ -60,7 +60,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role = Role::find($id);
+        $role = Role::findOrFail($id);
         $permissions = Permission::select('id', 'name')->get();
         
         $temp = '';
@@ -114,7 +114,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $role = Role::find($id);
+        $role = Role::findOrFail($id);
         $permissions = $request->input('permission');
 
         $role->syncPermissions($permissions);

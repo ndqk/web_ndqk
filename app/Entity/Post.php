@@ -9,6 +9,7 @@ class Post extends Model
 {
     use Sluggable;
     protected $table="posts";
+    protected $primaryKey = 'id';
 
     protected $fillable=['title', 'slug', 'category_id', 'content', 'user_id','view', 'status'];
 
@@ -21,6 +22,10 @@ class Post extends Model
     }
 
     public function images(){
-        return $this->hasMany('App\Entity\Image', 'post_id', 'id');
+        return $this->hasMany('App\Entity\Image');
+    }
+
+    public function category(){
+        return $this->belongsTo('App\Entity\Category');
     }
 }

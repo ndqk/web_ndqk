@@ -34,9 +34,10 @@
         </div>
         <div class="form-group">
             <label for="inputPreImage">Preview Image*</label>
+            ({{$previewImage ? $previewImage->image : ''}})
             <div class="input-group">
               <div class="custom-file">
-                <input name="previewImage" type="file" class="custom-file-input" id="inputPreImage"  >
+                <input name="previewImage" type="file" class="custom-file-input" id="inputPreImage">
                 <label class="custom-file-label" for="inputPreImage">Choose file</label>
               </div>
               <div class="input-group-append">
@@ -46,6 +47,7 @@
         </div>
         <div class="form-group">
             <label for="inputBackgroundImage">Background Image</label>
+            ({{$backgroundImage ? $backgroundImage->image : ''}})
             <div class="input-group">
               <div class="custom-file">
                 <input name="backgroundImage" type="file" class="custom-file-input" id="inputBackgroundImage" 
@@ -91,8 +93,8 @@
         <div class="form-group">
             <label for="InputStatus">Status</label>
             <select name="status" id="InputStatus" class="custom-select">
-                <option value="0">Off</option>
-                <option value="1">On</option>
+                <option value="0" {{$post->status == 0 ? 'selected' : '' }}>Off</option>
+                <option value="1" {{$post->status == 1 ? 'selected' : '' }}>On</option>
             </select>
         </div>
         
@@ -131,7 +133,7 @@
                     
                                 <div class="entry__media col-full">
                                     <div class="entry__post-thumb">
-                                        <img id="backgroundImage" src="{{sizeof($post->images) > 1 ? '/upload/image/post/'.$post->images[1]->image : ''}}" 
+                                        <img id="backgroundImage" src="{{$backgroundImage ? '/upload/image/post/'.$backgroundImage->image : ''}}" 
                                             width="100%" sizes="(max-width: 2000px) 100vw, 2000px" alt="">
                                     </div>
                                 </div>

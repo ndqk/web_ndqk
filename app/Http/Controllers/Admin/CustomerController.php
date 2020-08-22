@@ -63,13 +63,13 @@ class CustomerController extends Controller
     }
 
     public function showEditForm($userId){
-        $user = User::where('id', $userId)->first();
+        $user = User::findOrFail($userId);
         $roles = Role::pluck('name','name')->all();
         return view('admin.customer.edit', compact('user', 'roles'));
     }
 
     public function edit(EditUserRequest $request, $userId){
-        $user = User::where('id', $userId)->first();
+        $user = User::findOrFail($userId);
     
         $user->update([
             'name' => $request->input('name'),
@@ -85,9 +85,9 @@ class CustomerController extends Controller
     }
 
     public function delete($userId){
-        $deleteUser = User::where('id', $userId);
+        $deleteUser = User::findOrFail($userId);
         $deleteUser->delete();
         $deleteModel_has_role = DB::table('model_has_roles')->where('model_id', $userId)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('status', 'Xóa thành công');
     }
 }

@@ -20,7 +20,7 @@
       <div class="card-body">
         <div class="form-group">
             <label for="InputName">Title *</label>
-            <input type="text" name="title" id="InputName" class="form-control" placeholder="Title" >
+            <input type="text" name="title" id="InputName" class="form-control" placeholder="Title" autocomplete="off">
         </div>
         <div class="form-group">
             <label for="InputCategory">Category</label>

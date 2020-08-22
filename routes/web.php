@@ -64,8 +64,35 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['che
         Route::get('/delete/{id}', 'CustomerController@delete')->name('customer.delete');
     });
 
+    //banner
+    Route::resource('banner', 'BannerController');
+    Route::get('/banner/delete/{id}', ['as' => 'banner.delete', 'uses' => 'BannerController@destroy']);
+
 });
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => '/', 'namespace' => 'Site'], function () {
+    Route::get('/', 'HomeController@index')->name('site.home');
+
+    Route::get('category/{id}', function ($id) {
+        return view('site.category.category');
+    })->name('site.category');
+
+    Route::get('blog-image', function () {
+        return 'blog image';
+    })->name('site.blog');
+
+    Route::get('about', function () {
+        return view('site.about.about');
+    })->name('site.about');
+
+    Route::get('contact', function () {
+        return view('site.contact.contact');
+    })->name('site.contact');
+
+    Route::get('/post/{id}', function ($id) {
+        return $id;
+    })->name('site.post');
+
+
 });
+
