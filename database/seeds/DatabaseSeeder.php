@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(PermissionSeeder::class);
         //$this->call(CatePermissionSeeder::class);
         //$this->call(BannerSeeder::class);
-        $this->call(PostSeeder::class);
+        //$this->call(PostSeeder::class);
+        $this->call(TodoListPermissionSeeder::class);
     }
 }

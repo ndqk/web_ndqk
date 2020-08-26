@@ -68,6 +68,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['che
     Route::resource('banner', 'BannerController');
     Route::get('/banner/delete/{id}', ['as' => 'banner.delete', 'uses' => 'BannerController@destroy']);
 
+    //todo-list
+    Route::resource('todo-list', 'TodolistController');
+    Route::group(['prefix' => 'todo-list'], function () {
+        Route::get('delete/{id}', ['as' => 'todo-list.delete', 'uses' => 'TodolistController@destroy']);
+        Route::group(['prefix' => 'approve'], function () {
+            Route::get('/send-request/{id}', ['as' => 'todo-list.approve.send-request', 'uses' => 'TodolistController@approveSendRequest']);
+            Route::get('/list', ['as' => 'todo-list.approve.list', 'uses' => 'TodolistController@approveList']);
+            Route::get('/checked/{id}', ['as' => 'todo-list.approve.checked', 'uses' => 'TodolistController@approveChecked']);
+            Route::get('/delete/{id}' , ['as' => 'todo-list.approve.delete', 'uses' => 'TodolistController@approveDelete']);
+        });
+    });
+
 });
 
 Route::group(['prefix' => '/', 'namespace' => 'Site'], function () {

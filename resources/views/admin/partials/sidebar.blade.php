@@ -24,21 +24,21 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview {{request()->routeIs('admin.home') ? 'menu-open' : ''}} ">
-            <a href="{{asset('#')}}" class="nav-link {{request()->routeIs('admin.home') ? 'active' : ''}}">
+            <a href="{{route('admin.home')}}" class="nav-link {{request()->routeIs('admin.home') ? 'active' : ''}}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
-                <i class="right fas fa-angle-left"></i>
+                {{-- <i class="right fas fa-angle-left"></i> --}}
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            {{-- <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{route('admin.home')}}" class="nav-link {{request()->routeIs('admin.home') ? 'active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v1</p>
                 </a>
               </li>
-            </ul>
+            </ul> --}}
           </li>
           
           <li class="nav-header">QUẢN LÝ SẢN PHẨM</li>
@@ -160,7 +160,7 @@
             </ul>
           </li>
 
-          <li class="nav-header">QUẢN LÝ GIAO DIỆN</li>
+          <li class="nav-header">KHÁC</li>
 
           <li class="nav-item has-treeview {{request()->routeIs('banner*') ? 'menu-open' : ''}}">
             <a href="{{asset('#')}}" class="nav-link {{request()->routeIs('banner*') ? 'active' : ''}}">
@@ -186,7 +186,37 @@
             </ul>
           </li>
 
-          <li class="nav-header">QUẢN LÝ QUẢNG CÁO</li>
+          <li class="nav-item has-treeview {{request()->routeIs('todo-list*') ? 'menu-open' : ''}}">
+            <a href="{{asset('#')}}" class="nav-link {{request()->routeIs('todo-list*') ? 'active' : ''}}">
+              <i class="nav-icon far fa-list-alt"></i>
+              <p>
+                Quản lý việc cần làm
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('todo-list.index')}}" class="nav-link {{request()->routeIs('todo-list.index') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Danh sách việc cần làm</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('todo-list.create')}}" class="nav-link {{request()->routeIs('todo-list.create') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Thêm mới việc cần làm</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('todo-list.approve.list')}}" class="nav-link {{request()->routeIs('todo-list.approve*') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Duyệt</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          {{-- <li class="nav-header">QUẢN LÝ QUẢNG CÁO</li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

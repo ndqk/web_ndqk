@@ -9,7 +9,7 @@
     </li>
   </ul>
 
-  <!-- SEARCH FORM -->
+  {{-- <!-- SEARCH FORM -->
   <form class="form-inline ml-3">
     <div class="input-group input-group-sm">
       <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
@@ -19,11 +19,11 @@
         </button>
       </div>
     </div>
-  </form>
+  </form> --}}
 
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
-    <!-- Messages Dropdown Menu -->
+    {{-- <!-- Messages Dropdown Menu -->
     <li class="nav-item dropdown">
       <a class="nav-link" data-toggle="dropdown" href="{{asset('#')}}">
         <i class="far fa-comments"></i>
@@ -80,7 +80,7 @@
         <div class="dropdown-divider"></div>
         <a href="{{asset('#')}}" class="dropdown-item dropdown-footer">See All Messages</a>
       </div>
-    </li>
+    </li> --}}
     <!-- Notifications Dropdown Menu -->
     <li class="nav-item dropdown">
       <a class="nav-link" data-toggle="dropdown" href="{{asset('#')}}">
